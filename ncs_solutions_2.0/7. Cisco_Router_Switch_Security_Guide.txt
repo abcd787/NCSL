@@ -1,0 +1,219 @@
+Complete Guide to Securing Router & Switch using Cisco Packet Tracer (With Testing and Output)
+
+---
+
+### Objective:
+To secure a Cisco router and switch using console, VTY, and enable passwords; configure MOTD banner; and verify configuration via Telnet and console logins.
+
+---
+
+## PART 1: Network Setup
+
+### Devices to Use:
+					- 1 Router (R1)
+					- 1 Switch (S1)
+					- 1 PC (PC1)
+
+### Step 1: Add Devices
+- Open Cisco Packet Tracer
+- Drag and place:
+  - Router: e.g., 			2901 (rename to R1)
+  - Switch: e.g., 			2960 (rename to S1)
+  - PC:					PC (rename to PC1)
+
+### Step 2: Connect Devices
+- Use **copper straight-through** cables:
+  - PC1 FastEthernet0 → Switch FastEthernet0/1
+  - Switch FastEthernet0/24 → Router GigabitEthernet0/0
+
+---
+
+## PART 2: Assign IP Addresses
+
+### Step 3: Set IP on Router Interface
+1. Click **R1** → **CLI** tab
+2. Press `Enter` to access the CLI
+3. Type:
+				enable
+				configure terminal
+				interface gig0/0
+				ip address 192.168.1.1 255.255.255.0
+				no shutdown
+				exit
+				exit
+
+### Step 4: Set IP on PC
+1. Click **PC1** → **Desktop tab** → **IP Configuration**
+2. Set:
+  				- IP Address: `192.168.1.10`
+   				- Subnet Mask: `255.255.255.0`
+  				- Default Gateway: `192.168.1.1`
+
+### Step 5: Test Connection
+1. Go to **PC1** → **Command Prompt**
+2. Type:
+			ping 192.168.1.1
+Expected result:
+Reply from 192.168.1.1: bytes=32 time<1ms TTL=255
+If this fails:
+- Check cables
+- Check IP settings
+- Check if router interface is shut down (use `no shutdown`)
+
+---
+
+## PART 3: Configure Security on Router (R1)
+
+### Step 6: Set Console Password
+				enable
+				configure terminal
+				line console 0
+				password cisco123
+				login
+				exit
+
+### Step 7: Set VTY (Telnet) Password
+				line vty 0 4
+				password telnet123
+				login
+				exit
+
+### Step 8: Set Enable Secret Password
+				enable secret secureadmin
+
+### Step 9: Set MOTD Banner
+				banner motd #Unauthorized access is prohibited!#
+
+### Step 10: Save Configuration
+				end
+				write memory
+
+---
+
+## PART 4: Configure Security on Switch (S1)
+
+### Step 11: Configure Console Access
+				enable
+				configure terminal
+				line console 0
+				password switch123
+				login
+				exit
+
+### Step 12: Configure VTY Access
+				line vty 0 4
+				password remotesw
+				login
+				exit
+
+### Step 13: Set Enable Secret
+				enable secret adminsw
+
+### Step 14: Set MOTD Banner
+				banner motd #Unauthorized access is prohibited!#
+				exit
+				write memory
+
+---
+
+## PART 5: Testing Telnet
+
+### Step 15: Use PC1 to Telnet to R1
+1. Go to **PC1** → **Desktop** → **Command Prompt**
+2. Type:
+				telnet 192.168.1.1
+3. You should see:
+Unauthorized access is prohibited!
+User Access Verification
+Password:
+				Enter: `telnet123`
+4. Then type:
+				enable
+				Enter: `secureadmin`
+5. You should now see:
+				Router#
+
+---
+
+## PART 6: Testing Console Login
+
+### Step 16: Reboot Router or Click CLI Again
+- It will ask:
+User Access Verification
+Password:
+- 				Enter: `cisco123`
+- 				Type `enable` and enter: `secureadmin`
+
+---
+
+## PART 7: Verification & Output
+
+### Step 17: Run This on R1:
+show running-config
+Take screenshots showing:
+- Encrypted passwords
+- MOTD banner
+- VTY and console login config
+
+### Output Checklist:
+| Requirement                 | Evidence                |
+|----------------------------|-------------------------|
+| Console login prompt       | Screenshot              |
+| VTY login from PC1         | Screenshot              |
+| Banner displayed on login  | Screenshot              |
+| Password encryption visible| `show running-config`   |
+
+---
+
+## Notes on Common Errors
+
+| Error Message / Symptom                   | Solution                                        |
+|------------------------------------------|-------------------------------------------------|
+| Ping fails                                | Check IPs, cables, use `no shutdown`            |
+| Telnet timeout                            | Interface down or wrong IP, fix and retry       |
+| Password prompt not showing               | Forgot `login` command on VTY/console line      |
+| Enable password not accepted              | You used `enable password` not `enable secret`  |
+
+
+
+
+for proof
+Router (R1) Type: 			show ip interface brief
+
+PC1   					ping 192.168.1.1
+
+R1					Proof: Close CLI or reload router.
+					When it reopens, it should ask:
+					User Access Verification
+					Password:
+					Type cisco123 and press Enter.
+					
+					Proof:
+					Type:
+					enable
+					It will ask:
+					Password:
+					Enter secureadmin
+					
+Take screenshot after getting prompt: Router#
+
+					Proof:
+					Close CLI or use Telnet.
+					Banner will appear:
+					Unauthorized access is prohibited!
+					User Access Verification
+
+Telnet from PC1 to R1
+					Where: PC1 → Desktop → Command Prompt
+					Command:
+					telnet 192.168.1.1
+					It will show:
+					vbnet
+					Unauthorized access is prohibited!
+					User Access Verification
+					Password:
+					Enter telnet123 → 
+					then type enable → 
+					enter secureadmin
+					
+Take screenshot when you reach Router#

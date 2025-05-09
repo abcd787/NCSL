@@ -1,0 +1,282 @@
+					🔹 Problem 1: Nmap – Network Scanning
+
+
+Q1. What is Nmap used for?
+👉 To scan hosts for open ports, detect services, OS info, and security weaknesses.
+
+Q2. What does the -sV flag in Nmap do?
+👉 Detects service and version information on open ports.
+
+Q3. What does -O flag do in Nmap?
+👉 Attempts to detect the operating system of the target.
+
+Q4. Which scan is considered aggressive in Nmap?
+👉 nmap -A <target> — combines OS detection, service versioning, traceroute, script scanning.
+
+What is the difference between a ping scan and a port scan?
+Ping scan checks if the host is up.
+Port scan identifies which ports are open.
+
+What command performs OS detection in Nmap?
+nmap -O <target IP>
+
+What are some security risks of open ports?
+Unpatched services (e.g., FTP, Telnet) can be exploited for unauthorized access.
+
+What does an aggressive scan (-A) include?
+OS detection, version detection, script scanning, traceroute
+
+How do you scan specific ports?
+nmap -p 22,80,443 <target IP>
+
+
+
+					🔹 Problem 2: HTTP Traffic in Wireshark
+
+
+Q5. How do you filter only HTTP packets in Wireshark?
+👉 Use the filter: http
+
+Q6. What is a GET request in HTTP?
+👉 A request method used by the client to request data from the server.
+
+Q7. Where do you find the User-Agent in a Wireshark HTTP GET packet?
+👉 Inside the Hypertext Transfer Protocol section → User-Agent header.
+
+What is the structure of an HTTP request?
+Method (GET/POST), URI, HTTP version, headers
+
+How do you identify a GET request?
+Look in Info column for "GET /..."
+
+What is the significance of the User-Agent field?
+Identifies the browser or client making the request
+
+Why does HTTPS not show packet data?
+Because HTTPS is encrypted
+
+What filter shows only HTTP requests?
+http.request
+
+
+
+					🔹 Problem 3: DNS Traffic in Wireshark
+
+
+Q8. How to filter only DNS traffic in Wireshark?
+👉 Use the filter: dns
+
+Q9. What is a DNS query and response?
+👉 Query: client asks for IP of a domain. Response: DNS server returns the IP.
+
+Q10. What happens if DNS resolution fails?
+👉 The domain cannot be reached; browser shows “Server not found” error.
+
+What does a DNS query contain?
+Domain name, query type (A, AAAA, MX), ID, flags
+
+How to filter DNS queries only?
+dns.flags.response == 0
+
+What is a typical DNS response code for success?
+No error (0)
+
+How do you know if DNS failed?
+Response code: Name Error (3)
+
+Why does DNS use UDP?
+It's faster and doesn't require connection overhead
+
+
+
+
+					🔹 Problem 4: TCP 3-Way Handshake in Wireshark
+
+
+Q11. What are the three steps of TCP handshake?
+👉 SYN → SYN-ACK → ACK
+
+Q12. Why is a TCP handshake needed?
+👉 To establish a reliable connection between client and server before data is transferred.
+
+Q13. How to filter SYN packets only in Wireshark?
+👉 Use: tcp.flags.syn == 1 && tcp.flags.ack == 0
+
+What TCP flag indicates a handshake start?
+SYN
+
+What is the flag combination in the second step?
+SYN + ACK
+
+What does the ACK packet do?
+Confirms the connection establishment
+
+What does a complete TCP handshake ensure?
+Reliable connection between sender and receiver
+
+How to filter SYN, SYN-ACK, ACK in Wireshark?
+tcp.flags.syn == 1 for SYN, tcp.flags.ack == 1 && tcp.flags.syn == 1 for SYN-ACK
+
+
+
+
+					🔹 Problem 5 & 6: Vigenère Cipher (C++)
+
+
+Q14. What type of cipher is Vigenère?
+👉 A polyalphabetic substitution cipher.
+
+Q15. Vigenère decryption formula?
+👉 P = (C - K + 26) % 26
+
+Q16. How is encryption different?
+👉 C = (P + K) % 26
+
+Q17. What is the advantage of Vigenère over Caesar cipher?
+👉 It uses multiple alphabets, making frequency analysis harder.
+
+What is the formula for decryption?
+P = (C - K + 26) % 26
+
+How is the key reused?
+It loops over the plaintext length
+
+What is the expected output if ciphertext is LXFOPVEFRNHR and key is LEMON?
+ATTACKATDAWN
+
+How does decryption differ from Caesar cipher?
+It uses a key with multiple shifts, not a single one
+
+How is character conversion handled in code?
+Subtract and add ASCII of 'A' to convert between char and index
+
+What is the encryption formula?
+C = (P + K) % 26
+
+What does toupper() do in C++?
+Converts a character to uppercase
+
+How to handle wrapping in C++?
+Use modulo operator % 26
+
+What happens if plaintext is longer than the keyword?
+Keyword is repeated in a loop
+
+What input validation should be done?
+Ensure only alphabetic uppercase characters
+
+
+
+
+					🔹 Problem 7: Securing Devices with Cisco Packet Tracer
+
+
+Q18. What is the use of console and VTY passwords?
+👉 Console: secures physical access; VTY: secures remote (Telnet) access.
+
+Q19. What does enable secret do?
+👉 Sets an encrypted password for privileged EXEC mode.
+
+Q20. Why use a banner MOTD?
+👉 To display legal warning messages before login.
+
+What command sets console password?
+line console 0 \n password xxxx \n login
+
+How to encrypt all passwords?
+service password-encryption
+
+What does enable secret do?
+Sets encrypted password for privileged EXEC mode
+
+How to set banner MOTD?
+banner motd # Unauthorized access is prohibited! #
+
+How to test VTY login?
+From PC1, use telnet <router IP>
+
+
+
+					🔹 Problem 8: Windows Command Line Network Tools
+
+
+Q21. What does ipconfig /all show?
+👉 Shows IP, MAC, gateway, DNS, and network adapter details.
+
+Q22. Purpose of ping command?
+👉 Tests connectivity to another host.
+
+Q23. What does tracert show?
+👉 Shows path/hops packets take to reach a host.
+
+Q24. Use of nslookup?
+👉 Resolves domain names to IP addresses (DNS resolution).
+
+Q25. What info does netstat -an give?
+👉 Shows active TCP/UDP connections and listening ports.
+
+What command shows all IP info?
+ipconfig /all
+
+How to test local connectivity?
+ping <default gateway>
+
+What command traces route to host?
+tracert google.com
+
+What is nslookup used for?
+Resolves domain name to IP address
+
+What command shows open ports and active connections?
+netstat -an
+
+
+
+					🔹 Problem 9: TCPDump Traffic Capture
+
+
+Q26. What does TCPDump do?
+👉 Captures and displays live packet data on a network interface.
+
+Q27. Command to capture all traffic on eth0?
+👉 sudo tcpdump -i eth0
+
+Q28. How to filter only HTTP traffic?
+👉 sudo tcpdump -i eth0 port 80
+
+Q29. How to identify TCP handshake in TCPDump?
+👉 Look for sequence: SYN → SYN-ACK → ACK
+
+Q30. How do you capture packets for later analysis?
+👉 Use: sudo tcpdump -i eth0 -w capture.pcap
+
+What does tcpdump -i eth0 do?
+Captures all traffic on eth0
+
+How to capture only HTTP packets?
+tcpdump -i eth0 port 80
+
+How to save captured traffic to a file?
+tcpdump -i eth0 -w file.pcap
+
+What shows a TCP handshake in TCPDump?
+A sequence of SYN, SYN-ACK, and ACK flags in order
+
+How to stop TCPDump?
+Press Ctrl + C
+
+
+
+					📘 Bonus: Most Important Terms
+
+
+SYN, ACK, FIN 	→ TCP flags
+Port 80 / 443 	→ HTTP / HTTPS
+DNS 		→ Domain Name System
+IP Address 	→ Identifier for a device on network
+MAC Address 	→ Physical hardware address
+Gateway 	→ Device that routes traffic to outside networks
+User-Agent	→ Info about the browser/device
+Telnet 		→ Protocol for remote access (insecure)
+VTY 		→ Virtual terminal lines (used by Telnet)
+Banner MOTD 	→ Login warning message on Cisco devices

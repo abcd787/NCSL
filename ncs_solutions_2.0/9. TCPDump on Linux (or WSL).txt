@@ -1,0 +1,33 @@
+Open Linux terminal
+
+Identify Your Active Network Interface 			ip a
+
+TASK 1: Capture All Network Traffic			sudo tcpdump -i eth0
+	In your browser, visit:				http://example.com
+							press (Ctrl + C) to stop.
+
+TASK 2: Capture Only HTTP Traffic			sudo tcpdump -i eth0 port 80
+	In your browser, visit:				http://example.com
+							press Ctrl + C to stop capture.
+
+TASK 3: Capture and Analyze TCP Handshake		sudo tcpdump -i eth0 tcp
+	In browser, visit:				https://www.google.com
+							Press Ctrl + C to stop.
+	Find these in the output:
+							SYN → from client
+							SYN, ACK → from server
+							ACK → from client
+	This is the TCP 3-way handshake.
+
+
+
+ANALYSIS QUESTIONS (Answer Based on Capture)
+
+1. What type of traffic was most common?
+Look at TCP/UDP/ARP counts in the first capture.
+
+2. What were the source and destination IPs in the handshake?
+From Task 3: Find IPs in SYN → SYN-ACK → ACK packets.
+
+3. What domain was resolved in DNS queries?
+From Task 2 or 3: See if DNS packets are captured (use port 53 if needed).

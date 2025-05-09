@@ -1,0 +1,49 @@
+Step 1: Start Wireshark                               Click Start Capture
+
+Step 2: Visit a Website                               https://www.google.com
+
+Step 3: Stop the Capture                              Stop the Capture
+
+Step 4: Apply TCP Handshake Filter                    tcp.flags.syn == 1 && tcp.flags.ack == 0
+
+Step 5: Locate Full 3-Way Handshake
+Find these 3 packets (usually together, same stream ID):
+
+SYN: Client → Server                                  tcp.flags.syn == 1 && tcp.flags.ack == 0
+
+SYN-ACK: Server → Client                              tcp.flags.syn == 1 && tcp.flags.ack == 1
+
+ACK: Client → Server                                  tcp.flags.ack == 1 && tcp.flags.syn == 0
+
+
+🔍 Step 6: Analyze the Following
+✅ Q1: Source and Destination IPs and Ports
+Click each packet and expand Internet Protocol and Transmission Control Protocol sections
+Record:
+Source IP, Source Port
+Destination IP, Destination Port
+
+✅ Q2: Sequence Numbers
+SYN: Seq = 0 or random starting value
+SYN-ACK: Seq = own, ACK = client Seq + 1
+ACK: Seq = client next, ACK = server Seq + 1
+
+✅ Q3: Is Handshake Complete?
+If all 3 packets are present in order: Yes
+Confirm ACK is sent back from client
+
+
+
+📘 TCP Handshake Diagram
+
+Client                              Server
+  | ----------------- SYN (Seq=X) --> |
+  | <- SYN-ACK (Seq=Y, ACK=X+1) ----- |
+  | --------------- ACK (ACK=Y+1) --> |
+
+📝 Short Explanation:
+TCP uses a 3-way handshake to establish a connection:
+SYN:      Client starts connection
+SYN-ACK:  Server responds
+ACK:      Client confirms — connection is established
+

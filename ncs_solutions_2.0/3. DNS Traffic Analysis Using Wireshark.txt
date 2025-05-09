@@ -1,0 +1,39 @@
+Open Wireshark
+                                              Click Start Capture
+
+Step 2: Visit 3 websites one by one (e.g.):
+                                              www.google.com
+                                              www.wikipedia.org
+                                              www.github.com
+
+Step 3: Stop the Capture
+        Click the stop button (red square)
+
+Step 4: Apply DNS Filter
+                                               dns
+
+
+🔍 Step 5: Analyze the Following
+✅ Q1: What IP addresses are returned for the visited domains?
+Look for Standard query response packets
+Expand the Domain Name System (response) section
+IP addresses will be listed under Answer Section
+
+✅ Q2: Identify a DNS Query and its Response
+Find a pair:
+One packet is Standard query for www.google.com
+Next is Standard query response with resolved IP(s)
+
+✅ Q3: Was there any failed DNS resolution?
+Look for packets with:
+No such name
+Response code: Name Error
+This means the DNS server couldn't resolve the domain
+
+
+
+Example Table:
+Domain Name	        Resolved IP Address(es)
+www.google.com	        142.250.182.100
+www.wikipedia.org	208.80.154.224
+www.github.com	        140.82.121.4

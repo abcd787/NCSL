@@ -1,0 +1,59 @@
+Step-by-Step Execution:
+
+1. Basic Ping Scan
+
+
+nmap -sn 192.168.1.1
+
+
+📝 Explanation:
+Checks if the host is up (responds to ping).
+Result shows if host is "up" or not.
+
+2. Port Scanning
+
+
+nmap 192.168.1.1
+
+
+📝 Explanation:
+Scans the 1000 most common ports and identifies which ones are open.
+
+3. Service and Version Detection
+
+
+nmap -sV 192.168.1.1
+
+
+📝 Explanation:
+Detects services (like SSH, HTTP) and their versions on open ports.
+Helps identify potential vulnerabilities in outdated services.
+
+4. Operating System Detection
+
+
+nmap -O 192.168.1.1
+
+
+📝 Explanation:
+Attempts to detect the OS (e.g., Linux, Windows) of the target.
+
+5. Aggressive Scan
+
+
+nmap -A 192.168.1.1
+
+
+📝 Explanation:
+Combines OS detection, version detection, script scanning, and traceroute.
+Reveals the most detailed information.
+
+
+
+⚠️ Security Risks to Look Out For:
+Open Port	Service	Risk
+21	FTP	Transmits credentials in plain text
+23	Telnet	Unencrypted remote access
+80/443	HTTP/HTTPS	Check for outdated server versions
+3389	RDP	Vulnerable if not patched
+22	SSH	Check for brute-force risk

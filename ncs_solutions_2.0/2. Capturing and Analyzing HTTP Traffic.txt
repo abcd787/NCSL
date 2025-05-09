@@ -1,0 +1,36 @@
+Step 1: Start Wireshark
+Click                                                   Start Capture
+
+Step 2: Visit a Website
+Open a web browser (Chrome/Firefox)
+Visit a non-HTTPS site, e.g.:                           http://example.com
+
+Step 3: Stop Capture
+Once the website finishes loading
+Go back to Wireshark and click the                      red square (stop) button
+
+Step 4: Apply HTTP Filter :-                            http
+In the display filter bar, type http and hit Enter
+This filters only HTTP packets
+
+🔍 Step 5: Analyze the Following
+✅ Q1: What is the IP address of the web server?
+Find the first HTTP GET request
+Look at Destination IP in the Info pane (right-click > Follow > TCP Stream if needed)
+
+✅ Q2: Identify a GET request
+Click on a packet with “GET /” in the Info column
+Expand Hypertext Transfer Protocol in the lower pane
+
+✅ Q3: What is the User-Agent string used by the browser?
+Still in the GET request
+Expand Hypertext Transfer Protocol
+Look under User-Agent: (e.g., Mozilla/5.0...)
+
+
+
+📘 Summary: How HTTP Traffic is Structured
+HTTP is a request-response protocol.
+Client sends GET or POST request to server.
+Server responds with status code (e.g., 200 OK) and content.
+Header fields (like Host, User-Agent, etc.) describe the client/browser.

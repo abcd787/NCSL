@@ -1,0 +1,39 @@
+View Network Configuration						ipconfig /all
+      Look for adapter (Wi-Fi or Ethernet)
+               IPv4 Address: (e.g., 192.168.1.100)
+               Subnet Mask: 255.255.255.0
+               Default Gateway: (e.g., 192.168.1.1)
+               Physical Address (MAC): (e.g., B4-2E-99-55-AA-41)
+
+Test Connectivity							ping 172.31.112.1
+
+Ping Google DNS								ping 8.8.8.8
+      successful replies
+
+Ping a Website								ping google.com
+      DNS resolving google.com to an IP
+      Replies from that IP
+
+Trace Route to Website							tracert google.com
+     shows the network hops your data takes to Google's server.
+
+Check DNS Resolution (Google’s resolved IP address)			nslookup google.com
+
+View Active Connections and Ports					netstat -an
+     What to find:
+     Search lines with ESTABLISHED → proof that you're connected
+     Look for ports like :80, :443 in Local Address
+
+
+
+
+
+I was able to view all my network settings using ipconfig. My PC had a valid IP address, gateway, and DNS. 
+
+Pings to the gateway, Google DNS, and websites were successful with no packet loss. 
+
+Tracert showed network hops to reach google.com, and nslookup resolved DNS correctly.
+
+Netstat showed several established connections, including on ports 80 and 443.
+
+This confirms that my system has a working internet connection and functional network configuration.

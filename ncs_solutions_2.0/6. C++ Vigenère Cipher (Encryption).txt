@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+// Function to encrypt one character
+char encryptChar(char plainChar, char keyChar) {
+    int p = toupper(plainChar) - 'A';
+    int k = toupper(keyChar) - 'A';
+    int c = (p + k) % 26;
+    return c + 'A';
+}
+
+int main() {
+    string plaintext, keyword, ciphertext = "";
+
+    // Input
+    cout << "Enter plaintext (uppercase, no spaces): ";
+    cin >> plaintext;
+    cout << "Enter keyword (uppercase, no spaces): ";
+    cin >> keyword;
+
+    int keywordLength = keyword.length();
+
+    // Encrypt character by character
+    for (int i = 0; i < plaintext.length(); i++) {
+        char plainChar = plaintext[i];
+        char keyChar = keyword[i % keywordLength];
+        char cipherChar = encryptChar(plainChar, keyChar);
+        ciphertext += cipherChar;
+    }
+
+    // Output
+    cout << "Encrypted ciphertext: " << ciphertext << endl;
+
+    return 0;
+}
+
+
+
+
+
+
+# File Name :- encrypt.cpp
+# Running process in terminal
+# g++ encrypt.cpp -o encrypt
+# ./encrypt
